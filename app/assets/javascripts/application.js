@@ -13,4 +13,26 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require_tree .
+//= require_tree
+
+ // $ ->
+ //  $("a[data-remote]").on "ajax:success", (event) ->
+ //    alert "The article was deleted."
+
+$ (document).ready(function() {
+  $("a[data-remote]").on("ajax:success", function(event) {
+    // alert "The article was deleted."
+   });
+
+  $("#new-article").on("click", function(event){
+  	
+	   $.ajax({url: "/article/new", datetype:"script", success: function(result){
+	   		$("#new-form").html(result);
+	   }});
+  
+	});
+
+
+ });
+
+

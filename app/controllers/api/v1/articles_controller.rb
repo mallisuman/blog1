@@ -1,17 +1,8 @@
-class ArticlesController < ApplicationController
- def index
+class Api::V1::ArticlesController < ApplicationController
+	def index
       @articles = Article.all
-  end
-
-  def new 
-      @article = Article.new
-
-       respond_to do |format|
-        format.html 
-        format.js {render :new, layout: false}
-        format.json 
-      end
-end
+      render json: @articles
+  	end
  
  
 def edit
@@ -21,15 +12,16 @@ def edit
  def create 
    	    @article = Article.new(article_params)
         
-     if @article.save
-        redirect_to @article
-  else
-       render 'new'
-  end
+    if @article.save
+        render json: @article
+  	else
+       render json: @articles.errors
+  	end
 end
 
   def show
      @article = Article.find(params[:id])
+     render json: @article
   end
  
  
@@ -58,5 +50,4 @@ end
   def article_params
     params.require(:article).permit(:title, :text)
   end
-
 end
